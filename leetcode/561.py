@@ -4,7 +4,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        nums.sort()
+        a = nums.sort()
+        a = sorted(nums)
         answer = sum(nums[::2])
         return answer
 
