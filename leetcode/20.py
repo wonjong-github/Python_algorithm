@@ -4,11 +4,31 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        m = {}
+        st = []
+        brackets = {
+            ')':'(',
+            ']':'[',
+            '}':'{'
+        }
         for c in s:
-            m.setdefault(c, 0)
+            if c not in brackets:
+                st.append(c)
+            elif c in brackets and len(st)==0:
+                return False
+            elif c in brackets and st[len(st)-1] == brackets[c]:
+                st.pop()
+            else:
+                return False
 
-        k = ''.join(list(m.keys()).sort())
-        return k
+        if len(st)!=0:
+            return False
+
+        return True
+
+
 a = Solution()
-a.isValid("babbbsc")
+# a.isValid("{}[]()")
+a.isValid("]")
+a.isValid("{]")
+a.isValid("([)]")
+a.isValid("{[]}")

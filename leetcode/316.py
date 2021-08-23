@@ -4,12 +4,29 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        m = {}
+        stack = []
         for c in s:
-            m.setdefault(c, 0)
+            if c not in stack:
+                stack.append(c)
+            elif c in stack:
+                isBehindMin = False
+                index = stack.index(c)
 
-        k = ''.join(sorted(list(m.keys())))
-        return k
+                for i in range(index+1, len(stack)):
+                    if stack[i] < c:
+                        isBehindMin = True
+                        break
+                    elif stack[i] > c:
+                        break
+
+                if stack[len(stack)-1]==c:
+                    pass
+                elif isBehindMin:
+                    stack.remove(c)
+                    stack.append(c)
+        answer = ''.join(stack)
+        return answer
+
 
 a = Solution()
-a.removeDuplicateLetters("babbbsc")
+a.removeDuplicateLetters("cbacdcbc")
